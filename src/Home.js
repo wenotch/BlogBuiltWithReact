@@ -13,7 +13,12 @@ function Home() {
       {isPending && <div>Loading</div>}
       {blogs &&
         blogs.map((blog) => (
-          <BlogList title={blog.title} author={blog.author} id={blog.id} />
+          <BlogList
+            title={blog.title}
+            author={blog.author}
+            key={blog.id}
+            id={blog.id}
+          />
         ))}
     </div>
   );

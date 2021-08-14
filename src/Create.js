@@ -6,17 +6,19 @@ const Create = () => {
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
   const history = useHistory();
+  const [isPending, setisPending] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { title, body, author };
-
+    setisPending(true);
     fetch("http://localhost:8000/blogs/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
     }).then(() => {
       // history.go(-1);
+      setisPending(false);
       history.push("/");
     });
   };
@@ -43,7 +45,8 @@ const Create = () => {
           <option value="mario">mario</option>
           <option value="yoshi">yoshi</option>
         </select>
-        <button>Add Blog</button>
+        {!isPending && <button>Add Blog</button>}{" "}
+        {isPending && <button disabled>loading...</button>}
       </form>
     </div>
   );
